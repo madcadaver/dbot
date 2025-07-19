@@ -1,0 +1,8 @@
+{
+  "prompt_node": "2",
+  "prompt_key": "text",
+  "size_node": "10",
+  "width_key": "width",
+  "height_key": "height",
+  "batch_size_key": "batch_size"
+}

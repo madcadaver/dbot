@@ -1,0 +1,668 @@
+{
+  "1": {
+    "inputs": {
+      "filename_prefix": [
+        "29",
+        0
+      ],
+      "images": [
+        "48",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "2": {
+    "inputs": {
+      "text": ""
+    },
+    "class_type": "Text _O",
+    "_meta": {
+      "title": "Prompt+"
+    }
+  },
+  "4": {
+    "inputs": {
+      "vae_name": "f1dev_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "5": {
+    "inputs": {
+      "clip_name1": "t5-v1_1-xxl-encoder-Q3_K_L.gguf",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    },
+    "class_type": "DualClipLoaderGGUF",
+    "_meta": {
+      "title": "GGUF DualCLIP Loader"
+    }
+  },
+  "6": {
+    "inputs": {
+      "gguf_name": "flux1-dev-Q5_K_S.gguf"
+    },
+    "class_type": "LoaderGGUF",
+    "_meta": {
+      "title": "GGUF Loader"
+    }
+  },
+  "8": {
+    "inputs": {
+      "seed": -1
+    },
+    "class_type": "Seed (rgthree)",
+    "_meta": {
+      "title": "Seed (rgthree)"
+    }
+  },
+  "9": {
+    "inputs": {
+      "noise_seed": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "10": {
+    "inputs": {
+      "width": 960,
+      "height": 640,
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "EmptySD3LatentImage"
+    }
+  },
+  "11": {
+    "inputs": {
+      "scheduler": "beta",
+      "steps": 28,
+      "denoise": 1,
+      "model": [
+        "19",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "12": {
+    "inputs": {
+      "sampler_name": "ipndm"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "13": {
+    "inputs": {
+      "noise": [
+        "9",
+        0
+      ],
+      "guider": [
+        "15",
+        0
+      ],
+      "sampler": [
+        "12",
+        0
+      ],
+      "sigmas": [
+        "11",
+        0
+      ],
+      "latent_image": [
+        "105",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "14": {
+    "inputs": {
+      "text": [
+        "25",
+        0
+      ],
+      "clip": [
+        "18",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "15": {
+    "inputs": {
+      "model": [
+        "19",
+        0
+      ],
+      "conditioning": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "BasicGuider"
+    }
+  },
+  "16": {
+    "inputs": {
+      "guidance": 3.5,
+      "conditioning": [
+        "14",
+        0
+      ]
+    },
+    "class_type": "FluxGuidance",
+    "_meta": {
+      "title": "FluxGuidance"
+    }
+  },
+  "18": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "lora_1": {
+        "on": true,
+        "lora": "FluxMythP0rtr4itStyle.safetensors",
+        "strength": 0.4
+      },
+      "lora_2": {
+        "on": true,
+        "lora": "aidmaIllustriousv-FLUX-V0.2.safetensors",
+        "strength": 0.7
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "6",
+        0
+      ],
+      "clip": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "Power Lora Loader (rgthree)"
+    }
+  },
+  "19": {
+    "inputs": {
+      "max_shift": 1.1,
+      "base_shift": 0.5,
+      "width": [
+        "87:0",
+        0
+      ],
+      "height": [
+        "87:1",
+        0
+      ],
+      "model": [
+        "18",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingFlux",
+    "_meta": {
+      "title": "ModelSamplingFlux"
+    }
+  },
+  "20": {
+    "inputs": {
+      "strings_to_remove": " ",
+      "match_case": false,
+      "match_whole_string": false,
+      "remove_extra_spaces": true,
+      "input_string": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "StringStrip",
+    "_meta": {
+      "title": "String Strip"
+    }
+  },
+  "24": {
+    "inputs": {
+      "ANY": [
+        "20",
+        0
+      ],
+      "IF_TRUE": [
+        "2",
+        0
+      ],
+      "IF_FALSE": [
+        "31",
+        0
+      ]
+    },
+    "class_type": "If ANY return A else B-🔬",
+    "_meta": {
+      "title": "If ANY return A else B"
+    }
+  },
+  "25": {
+    "inputs": {
+      "delimiter": ", ",
+      "clean_whitespace": "true",
+      "text_a": [
+        "107",
+        0
+      ],
+      "text_b": [
+        "24",
+        0
+      ],
+      "text_c": [
+        "98",
+        0
+      ]
+    },
+    "class_type": "Text Concatenate",
+    "_meta": {
+      "title": "Text Concatenate"
+    }
+  },
+  "26": {
+    "inputs": {
+      "text": "Anime girl with long auburn hair, emerald green eyes, playful smirk\nA tree\nLava flow spelling \"NOTEXT\""
+    },
+    "class_type": "Text _O",
+    "_meta": {
+      "title": "Promp List"
+    }
+  },
+  "27": {
+    "inputs": {
+      "String": "high quality, intricate, extremely detailed, mythp0rt"
+    },
+    "class_type": "String",
+    "_meta": {
+      "title": "Extra end String"
+    }
+  },
+  "28": {
+    "inputs": {
+      "truncate_by": "words",
+      "truncate_from": "beginning",
+      "truncate_to": 16,
+      "text": [
+        "24",
+        0
+      ]
+    },
+    "class_type": "Text String Truncate",
+    "_meta": {
+      "title": "Text String Truncate"
+    }
+  },
+  "29": {
+    "inputs": {
+      "string_a": [
+        "30",
+        0
+      ],
+      "string_b": [
+        "28",
+        0
+      ]
+    },
+    "class_type": "ConcatStringSingle",
+    "_meta": {
+      "title": "Concat String (Single) 📅🅕🅝"
+    }
+  },
+  "30": {
+    "inputs": {
+      "format": "%Y-%m-%d/%H%M%S - "
+    },
+    "class_type": "Date Time Format",
+    "_meta": {
+      "title": "Date Time Format"
+    }
+  },
+  "31": {
+    "inputs": {
+      "seed": [
+        "8",
+        0
+      ],
+      "text": [
+        "26",
+        0
+      ]
+    },
+    "class_type": "Text Random Line",
+    "_meta": {
+      "title": "Text Random Line"
+    }
+  },
+  "32": {
+    "inputs": {
+      "tile_size": 512,
+      "overlap": 64,
+      "temporal_size": 64,
+      "temporal_overlap": 8,
+      "samples": [
+        "13",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeTiled",
+    "_meta": {
+      "title": "VAE Decode (Tiled)"
+    }
+  },
+  "33": {
+    "inputs": {
+      "image": [
+        "36",
+        0
+      ]
+    },
+    "class_type": "GetImageSize+",
+    "_meta": {
+      "title": "🔧 Get Image Size"
+    }
+  },
+  "34": {
+    "inputs": {
+      "value": "b /  512",
+      "b": [
+        "33",
+        0
+      ]
+    },
+    "class_type": "SimpleMath+",
+    "_meta": {
+      "title": "🔧 Simple Math"
+    }
+  },
+  "35": {
+    "inputs": {
+      "rows": 2,
+      "cols": [
+        "34",
+        0
+      ],
+      "overlap": 0,
+      "overlap_x": 0,
+      "overlap_y": 0,
+      "image": [
+        "36",
+        0
+      ]
+    },
+    "class_type": "ImageTile+",
+    "_meta": {
+      "title": "🔧 Image Tile"
+    }
+  },
+  "36": {
+    "inputs": {
+      "sharpen_radius": 1,
+      "sigma": 0.18,
+      "alpha": 1,
+      "image": [
+        "96",
+        0
+      ]
+    },
+    "class_type": "ImageSharpen",
+    "_meta": {
+      "title": "Image Sharpen"
+    }
+  },
+  "37": {
+    "inputs": {
+      "model_name": "2x-AnimeSharpV4_RCAN.safetensors"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Fast 2x Upscale Model"
+    }
+  },
+  "48": {
+    "inputs": {
+      "upscale_model": [
+        "49",
+        0
+      ],
+      "image": [
+        "36",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Detail Image (using Model)"
+    }
+  },
+  "49": {
+    "inputs": {
+      "model_name": "1xSkinContrast-High-SuperUltraCompact.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Fast 1x detailing Model"
+    }
+  },
+  "88": {
+    "inputs": {
+      "latent": [
+        "105",
+        0
+      ]
+    },
+    "class_type": "Get Size JK",
+    "_meta": {
+      "title": "Get Size JK🐉"
+    }
+  },
+  "91": {
+    "inputs": {
+      "anything": [
+        "48",
+        0
+      ]
+    },
+    "class_type": "easy clearCacheAll",
+    "_meta": {
+      "title": "Clear Cache All"
+    }
+  },
+  "92": {
+    "inputs": {
+      "anything": [
+        "48",
+        0
+      ]
+    },
+    "class_type": "easy cleanGpuUsed",
+    "_meta": {
+      "title": "Clean VRAM Used"
+    }
+  },
+  "94": {
+    "inputs": {
+      "any_input": [
+        "48",
+        0
+      ]
+    },
+    "class_type": "FluxAttentionCleanup",
+    "_meta": {
+      "title": "Flux Attention Cleanup"
+    }
+  },
+  "96": {
+    "inputs": {
+      "upscale_model": [
+        "37",
+        0
+      ],
+      "image": [
+        "32",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Fast x2 Upscale"
+    }
+  },
+  "97": {
+    "inputs": {
+      "text": [
+        "2",
+        0
+      ],
+      "sub_text": "anime",
+      "case_insensitive": true
+    },
+    "class_type": "Text Contains",
+    "_meta": {
+      "title": "Text Contains"
+    }
+  },
+  "98": {
+    "inputs": {
+      "text_a": [
+        "99",
+        0
+      ],
+      "text_b": [
+        "27",
+        0
+      ],
+      "boolean": [
+        "97",
+        0
+      ]
+    },
+    "class_type": "Text Input Switch",
+    "_meta": {
+      "title": "Text Input Switch"
+    }
+  },
+  "99": {
+    "inputs": {
+      "String": "perfect body, detailed, mythp0rt, aidmaillustrious"
+    },
+    "class_type": "String",
+    "_meta": {
+      "title": "IL"
+    }
+  },
+  "104": {
+    "inputs": {
+      "text": [
+        "2",
+        0
+      ],
+      "sub_text": "portrait",
+      "case_insensitive": true
+    },
+    "class_type": "Text Contains",
+    "_meta": {
+      "title": "Text Contains"
+    }
+  },
+  "105": {
+    "inputs": {
+      "boolean_value": [
+        "104",
+        0
+      ],
+      "latent_false": [
+        "10",
+        0
+      ],
+      "latent_true": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "CR Latent Input Switch JK",
+    "_meta": {
+      "title": "Latent Input Switch JK🐉"
+    }
+  },
+  "106": {
+    "inputs": {
+      "width": 640,
+      "height": 960,
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "EmptySD3LatentImage"
+    }
+  },
+  "107": {
+    "inputs": {
+      "String": "embedding:lazypos"
+    },
+    "class_type": "String",
+    "_meta": {
+      "title": "Extra start String"
+    }
+  },
+  "87:0": {
+    "inputs": {
+      "value": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "Int-🔬",
+    "_meta": {
+      "title": "Width"
+    }
+  },
+  "87:1": {
+    "inputs": {
+      "value": [
+        "88",
+        1
+      ]
+    },
+    "class_type": "Int-🔬",
+    "_meta": {
+      "title": "Height"
+    }
+  }
+}

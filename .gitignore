@@ -1,0 +1,7 @@
+/data/logs
+/data/mdb
+/data/neo4j
+/data/gen_profile.json
+/web
+.env
+.env.sample

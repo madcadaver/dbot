@@ -1,0 +1,87 @@
+services:
+  etcd:
+    container_name: milvus-etcd
+    image: quay.io/coreos/etcd:v3.5.15
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+    volumes:
+      - ./data/mdb/etcd:/etcd
+    command: etcd -advertise-client-urls=http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    restart: always
+
+  minio:
+    container_name: milvus-minio
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    volumes:
+      - ./data/mdb/minio:/minio_data
+    command: minio server /minio_data
+    restart: always
+
+  standalone:
+    container_name: milvus-standalone
+    build:
+      context: .
+      dockerfile: Dockerfile.milvus
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: milvus-etcd:2379
+      MINIO_ADDRESS: milvus-minio:9000
+      ROOT_COORD_ADDRESS: milvus-standalone:53100
+    volumes:
+      - ./data/mdb/milvus:/var/lib/milvus
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    depends_on:
+      - etcd
+      - minio
+    restart: always
+
+  dbot:
+    container_name: dbot
+    image: discordbot:latest
+    env_file:
+      - ./.env
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8080:8080"
+    depends_on:
+      - standalone
+      - neo4j
+    restart: always
+
+  web:
+    container_name: dbot-web
+    build:
+      context: ./web
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "5000:5000"
+    depends_on:
+      - standalone
+    restart: always
+
+  neo4j:
+    image: neo4j:5.26
+    container_name: neo4j
+    ports:
+      - "7474:7474"  # HTTP interface for Neo4j Browser
+      - "7687:7687"  # Bolt protocol for application connections
+    volumes:
+      - ./data/neo4j/data:/data
+      - ./data/neo4j/logs:/logs
+      - ./data/neo4j/import:/var/lib/neo4j/import
+      - ./data/neo4j/plugins:/plugins
+    environment:
+      - NEO4J_AUTH=${NEO4J_USER}/${NEO4J_PASSWORD}
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+      - NEO4J_dbms_security_procedures_allowlist=apoc.*
+    restart: always
