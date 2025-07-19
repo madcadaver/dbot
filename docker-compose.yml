@@ -56,18 +56,6 @@ services:
       - neo4j
     restart: always
 
-  web:
-    container_name: dbot-web
-    build:
-      context: ./web
-    volumes:
-      - ./data:/app/data
-    ports:
-      - "5000:5000"
-    depends_on:
-      - standalone
-    restart: always
-
   neo4j:
     image: neo4j:5.26
     container_name: neo4j
