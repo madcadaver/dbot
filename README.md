@@ -44,8 +44,8 @@ The project is designed to be run with Docker and Docker Compose.
 ### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/madcadaver/dbot.git
+cd dbot
 ```
 
 ### 3. Run the Setup Script
